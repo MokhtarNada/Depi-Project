@@ -1,0 +1,51 @@
+﻿@model LoginViewModel
+@{
+    ViewData["Title"] = "Login";
+}
+
+<div class="min-h-[70vh] flex items-center justify-center">
+    <div class="max-w-md w-full bg-white p-8 rounded-2xl shadow-sm border border-gray-200">
+        <div class="text-center mb-6">
+            <i class="fa-solid fa-lock text-4xl text-indigo-600 mb-2"></i>
+            <h2 class="text-2xl font-bold text-gray-900">Sign In</h2>
+            <p class="text-sm text-gray-500 mt-1">Access your EventHub dashboard</p>
+        </div>
+
+        <form asp-action="Login" method="post" class="space-y-4">
+            <div asp-validation-summary="ModelOnly" class="p-4 rounded-lg bg-red-50 text-sm text-red-700"></div>
+            <input type="hidden" asp-for="ReturnUrl" />
+
+            <div>
+                <label asp-for="UserName" class="block text-sm font-semibold text-gray-700 mb-1">Username</label>
+                <input asp-for="UserName" class="w-full rounded-lg border-gray-300 shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 p-2.5 border" placeholder="Your username" />
+                <span asp-validation-for="UserName" class="text-xs text-red-600 mt-1 block"></span>
+            </div>
+
+            <div>
+                <label asp-for="Password" class="block text-sm font-semibold text-gray-700 mb-1">Password</label>
+                <input asp-for="Password" class="w-full rounded-lg border-gray-300 shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 p-2.5 border" placeholder="••••••••" />
+                <span asp-validation-for="Password" class="text-xs text-red-600 mt-1 block"></span>
+            </div>
+
+            <div class="flex items-center justify-between text-sm">
+                <label class="flex items-center text-gray-600">
+                    <input asp-for="RememberMe" class="rounded border-gray-300 text-indigo-600 focus:ring-indigo-500 mr-2" />
+                    Remember me
+                </label>
+            </div>
+
+            <button type="submit" class="w-full py-2.5 px-4 text-sm font-medium rounded-lg text-white bg-indigo-600 hover:bg-indigo-700 shadow-sm transition mt-2">
+                Sign In
+            </button>
+        </form>
+
+        <p class="text-center text-sm text-gray-600 mt-4">
+            Don't have an account? <a asp-action="Register" class="text-indigo-600 hover:underline font-medium">Register here</a>
+        </p>
+    </div>
+</div>
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

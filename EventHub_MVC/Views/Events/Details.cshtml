@@ -1,0 +1,43 @@
+﻿@model Event
+@{
+    ViewData["Title"] = "Event Details";
+}
+
+<div class="max-w-3xl mx-auto bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden">
+    <div class="bg-indigo-600 px-8 py-6 text-white">
+        <span class="text-xs font-bold uppercase tracking-wider bg-indigo-500 px-2.5 py-1 rounded-md">Event Dashboard</span>
+        <h1 class="text-3xl font-extrabold mt-2">@Model.Name</h1>
+    </div>
+    
+    <div class="p-8 space-y-6">
+        <div>
+            <h3 class="text-sm font-semibold text-gray-400 uppercase tracking-wider">Description</h3>
+            <p class="mt-2 text-gray-700 text-lg leading-relaxed">@Model.Description</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 pt-6 border-t border-gray-100">
+            <div>
+                <h4 class="text-xs font-semibold text-gray-400 uppercase">Schedule Date</h4>
+                <p class="mt-1 text-sm font-bold text-gray-900"><i class="fa-regular fa-calendar text-indigo-500 mr-1"></i> @Model.Date.ToString("MMMM dd, yyyy - HH:mm")</p>
+            </div>
+            <div>
+                <h4 class="text-xs font-semibold text-gray-400 uppercase">Target Venue</h4>
+                <p class="mt-1 text-sm font-bold text-gray-900"><i class="fa-solid fa-location-dot text-indigo-500 mr-1"></i> @(Model.Venue?.Name ?? "Unassigned")</p>
+            </div>
+            <div>
+                <h4 class="text-xs font-semibold text-gray-400 uppercase">Total Capacity</h4>
+                <p class="mt-1 text-sm font-bold text-gray-900"><i class="fa-solid fa-users text-indigo-500 mr-1"></i> @Model.Capacity Slots Available</p>
+            </div>
+        </div>
+
+        <div class="flex items-center justify-between pt-6 border-t border-gray-100">
+            <a asp-action="Index" class="text-sm font-medium text-gray-500 hover:text-gray-700">&larr; Back to Events</a>
+            @if(User.IsInRole("Admin"))
+            {
+                <div class="flex space-x-3">
+                    <a asp-action="Edit" asp-route-id="@Model.Id" class="px-4 py-2 text-sm font-medium rounded-lg text-white bg-indigo-600 hover:bg-indigo-700 transition">Edit Details</a>
+                </div>
+            }
+        </div>
+    </div>
+</div>

@@ -1,0 +1,57 @@
+﻿@model List<Event>
+@{
+    ViewData["Title"] = "Events";
+}
+
+<div class="sm:flex sm:items-center sm:justify-between mb-8">
+    <div>
+        <h1 class="text-3xl font-extrabold text-gray-900 tracking-tight">Upcoming Events</h1>
+        <p class="mt-2 text-sm text-gray-600">Discover and manage all available events and schedules.</p>
+    </div>
+    @if (User.IsInRole("Admin"))
+    {
+        <div class="mt-4 sm:mt-0">
+            <a asp-action="Create" class="inline-flex items-center justify-center px-4 py-2 border border-transparent text-sm font-medium rounded-lg text-white bg-indigo-600 hover:bg-indigo-700 shadow-sm transition">
+                <i class="fa-solid fa-plus mr-2"></i> Create Event
+            </a>
+        </div>
+    }
+</div>
+
+<div class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+    @foreach (var item in Model)
+    {
+        <div class="bg-white overflow-hidden shadow rounded-xl border border-gray-100 flex flex-col justify-between hover:shadow-md transition duration-200">
+            <div class="p-6">
+                <div class="flex items-center justify-between mb-3">
+                    <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-indigo-50 text-indigo-700">
+                        <i class="fa-solid fa-location-dot text-xs mr-1"></i> @(item.Venue?.Name ?? "No Venue Assigned")
+                    </span>
+                    <span class="text-xs text-gray-400 font-medium">Capacity: @item.Capacity</span>
+                </div>
+                <h3 class="text-xl font-bold text-gray-900 mb-2">@item.Name</h3>
+                <p class="text-sm text-gray-500 line-clamp-2 mb-4">@item.Description</p>
+                <div class="text-xs text-gray-400">
+                    <i class="fa-regular fa-calendar mr-1"></i> @item.Date.ToString("MMM dd, yyyy")
+                </div>
+            </div>
+            <div class="bg-gray-50 px-6 py-4 flex items-center justify-between border-t border-gray-100">
+                <a asp-action="Details" asp-route-id="@item.Id" class="text-sm font-semibold text-indigo-600 hover:text-indigo-900">View Details &rarr;</a>
+                <div class="flex space-x-3">
+                    <a asp-controller="Bookings"
+                           asp-action="Create"
+                           asp-route-eventId="@item.Id"
+                           class="inline-flex items-center justify-center px-3 py-1.5 text-xs font-semibold rounded-lg text-white bg-indigo-600 hover:bg-indigo-700 shadow-sm transition-all duration-200 whitespace-nowrap">
+                        <i class="fa-solid fa-ticket-simple mr-1.5 text-[10px]"></i>
+                        Book Now
+                    </a>
+                    @if (User.IsInRole("Admin"))
+                    {
+                        <a asp-action="Edit" asp-route-id="@item.Id" class="text-gray-400 hover:text-yellow-600"><i class="fa-solid fa-pen"></i></a>
+                        <a asp-action="Delete" asp-route-id="@item.Id" class="text-gray-400 hover:text-red-600"><i class="fa-solid fa-trash"></i></a>
+                    }
+                </div>
+            </div>
+        </div>
+    }
+</div>

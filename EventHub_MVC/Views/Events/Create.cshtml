@@ -1,0 +1,55 @@
+﻿@model Event
+@{
+    ViewData["Title"] = "Create Event";
+}
+
+<div class="max-w-xl mx-auto bg-white p-8 rounded-2xl shadow-sm border border-gray-200">
+    <h2 class="text-2xl font-bold text-gray-900 mb-6">Create New Event</h2>
+
+    <form asp-action="Create" method="post" class="space-y-5">
+        <div asp-validation-summary="ModelOnly" class="p-4 rounded-lg bg-red-50 text-sm text-red-700"></div>
+
+        <div>
+            <label asp-for="Name" class="block text-sm font-semibold text-gray-700 mb-1">Event Name</label>
+            <input asp-for="Name" class="w-full rounded-lg border-gray-300 shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 p-2.5 border" placeholder="e.g. Developer Conference" />
+            <span asp-validation-for="Name" class="text-xs text-red-600 mt-1"></span>
+        </div>
+
+        <div>
+            <label asp-for="Description" class="block text-sm font-semibold text-gray-700 mb-1">Description</label>
+            <textarea asp-for="Description" rows="3" class="w-full rounded-lg border-gray-300 shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 p-2.5 border" placeholder="Event details..."></textarea>
+            <span asp-validation-for="Description" class="text-xs text-red-600 mt-1"></span>
+        </div>
+
+        <div>
+            <label asp-for="Date" class="block text-sm font-semibold text-gray-700 mb-1">Event Date</label>
+            <input asp-for="Date" type="datetime-local" class="w-full rounded-lg border-gray-300 shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 p-2.5 border" />
+            <span asp-validation-for="Date" class="text-xs text-red-600 mt-1"></span>
+        </div>
+
+        <div class="grid grid-cols-2 gap-4">
+            <div>
+                <label asp-for="Capacity" class="block text-sm font-semibold text-gray-700 mb-1">Capacity</label>
+                <input asp-for="Capacity" type="number" class="w-full rounded-lg border-gray-300 shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 p-2.5 border" />
+                <span asp-validation-for="Capacity" class="text-xs text-red-600 mt-1"></span>
+            </div>
+            <div>
+                <label asp-for="VenueId" class="block text-sm font-semibold text-gray-700 mb-1">Select Venue</label>
+                <select asp-for="VenueId" asp-items="ViewBag.VenueId" class="w-full rounded-lg border-gray-300 shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 p-2.5 border bg-white">
+                    <option value="">-- Choose a Venue --</option>
+                </select>
+                <span asp-validation-for="VenueId" class="text-xs text-red-600 mt-1 block"></span>
+            </div>
+        </div>
+
+        <div class="flex items-center justify-end space-x-3 pt-4 border-t border-gray-100">
+            <a asp-action="Index" class="px-4 py-2 border border-gray-300 text-sm font-medium rounded-lg text-gray-700 bg-white hover:bg-gray-50 transition">Cancel</a>
+            <button type="submit" class="px-4 py-2 text-sm font-medium rounded-lg text-white bg-indigo-600 hover:bg-indigo-700 shadow-sm transition">Save Event</button>
+        </div>
+    </form>
+</div>
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

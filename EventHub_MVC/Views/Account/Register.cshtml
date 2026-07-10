@@ -1,0 +1,49 @@
+﻿@model RegisterViewModel
+@{
+    ViewData["Title"] = "Register";
+}
+
+<div class="min-h-[70vh] flex items-center justify-center">
+    <div class="max-w-md w-full bg-white p-8 rounded-2xl shadow-sm border border-gray-200">
+        <div class="text-center mb-6">
+            <i class="fa-solid fa-user-plus text-4xl text-indigo-600 mb-2"></i>
+            <h2 class="text-2xl font-bold text-gray-900">Create an Account</h2>
+            <p class="text-sm text-gray-500 mt-1">Join EventHub to start booking your tickets</p>
+        </div>
+
+        <form asp-action="Register" method="post" class="space-y-4">
+            <div asp-validation-summary="ModelOnly" class="p-4 rounded-lg bg-red-50 text-sm text-red-700"></div>
+
+            <div>
+                <label asp-for="UserName" class="block text-sm font-semibold text-gray-700 mb-1">Username</label>
+                <input asp-for="UserName" class="w-full rounded-lg border-gray-300 shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 p-2.5 border" placeholder="e.g. john_doe" />
+                <span asp-validation-for="UserName" class="text-xs text-red-600 mt-1 block"></span>
+            </div>
+
+            <div>
+                <label asp-for="Password" class="block text-sm font-semibold text-gray-700 mb-1">Password</label>
+                <input asp-for="Password" class="w-full rounded-lg border-gray-300 shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 p-2.5 border" placeholder="••••••••" />
+                <span asp-validation-for="Password" class="text-xs text-red-600 mt-1 block"></span>
+            </div>
+
+            <div>
+                <label asp-for="ConfirmPassword" class="block text-sm font-semibold text-gray-700 mb-1">Confirm Password</label>
+                <input asp-for="ConfirmPassword" class="w-full rounded-lg border-gray-300 shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 p-2.5 border" placeholder="••••••••" />
+                <span asp-validation-for="ConfirmPassword" class="text-xs text-red-600 mt-1 block"></span>
+            </div>
+
+            <button type="submit" class="w-full py-2.5 px-4 text-sm font-medium rounded-lg text-white bg-indigo-600 hover:bg-indigo-700 shadow-sm transition mt-2">
+                Register
+            </button>
+        </form>
+
+        <p class="text-center text-sm text-gray-600 mt-4">
+            Already have an account? <a asp-action="Login" class="text-indigo-600 hover:underline font-medium">Sign in</a>
+        </p>
+    </div>
+</div>
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
